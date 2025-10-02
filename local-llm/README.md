@@ -1,8 +1,8 @@
 
 # Table of Contents
 
-- [ollama_llm_run.py](#ollama_llm_run.py)
-- [ollama_chat_mlflow_app.py](#ollama_chat_mlflow_app.py)
+- [ollama_llm_run.py](#ollama-llm-run)
+- [ollama_chat_mlflow_app.py](#ollama-chat-mlflow-app)
 
 ## ollama_llm_run.py
 
