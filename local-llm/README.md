@@ -2,7 +2,7 @@
 # Table of Contents
 
 - [ollama_llm_run.py](#ollama_llm_runpy)
-- [ollama_chat_mlflow_app.py](#ollama_cha_mlflow_apppy)
+- [ollama_chat_mlflow_app.py](#ollama_chat_mlflow_apppy)
 
 ## ollama_llm_run.py
 
