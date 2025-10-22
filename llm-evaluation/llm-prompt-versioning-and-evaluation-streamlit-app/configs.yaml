@@ -11,8 +11,8 @@ app:
 
 mlflow:
   tracking_uri: "http://localhost:5000"
-  experiment_name: "llm-evaluation-test01"
-  prompt_name: "qa_prompt_test01"
+  experiment_name: "llm-evaluation"
+  prompt_name: "qa_prompt"
 
 llm:
   provider: "groq"
