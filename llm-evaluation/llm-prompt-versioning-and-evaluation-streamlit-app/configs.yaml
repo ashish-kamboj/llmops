@@ -1,0 +1,52 @@
+# App configuration
+app:
+  title: "LLM Prompt Versioning & Evaluation"
+  page_icon: "🧪"
+  layout: "wide"
+  theme:
+    primaryColor: "#6C63FF"
+    backgroundColor: "#0F172A"
+    secondaryBackgroundColor: "#111827"
+    textColor: "#E5E7EB"
+
+mlflow:
+  tracking_uri: "http://localhost:5000"
+  experiment_name: "llm-evaluation-test01"
+  prompt_name: "qa_prompt_test01"
+
+llm:
+  provider: "groq"
+  model: "llama-3.3-70b-versatile"
+  temperature: 0.7
+  max_tokens: 500
+  top_p: 1.0
+
+evaluation:
+  # Default evaluation dataset from notebook
+  default_dataset:
+    - inputs: {question: "What causes rain?"}
+      expectations:
+        key_concepts: ["evaporation", "condensation", "precipitation", "water cycle"]
+      tags: {topic: "weather", difficulty: "basic"}
+    - inputs: {question: "Explain the difference between AI and ML"}
+      expectations:
+        key_concepts: ["artificial intelligence", "machine learning", "subset", "algorithms"]
+      tags: {topic: "technology", difficulty: "intermediate"}
+    - inputs: {question: "How do vaccines work?"}
+      expectations:
+        key_concepts: ["immune system", "antibodies", "protection", "antigens"]
+      tags: {topic: "medicine", difficulty: "intermediate"}
+    - inputs: {question: "What is photosynthesis?"}
+      expectations:
+        key_concepts: ["sunlight", "chlorophyll", "carbon dioxide", "oxygen", "glucose"]
+      tags: {topic: "biology", difficulty: "basic"}
+    - inputs: {question: "Describe quantum computing"}
+      expectations:
+        key_concepts: ["quantum", "qubits", "superposition", "entanglement"]
+      tags: {topic: "technology", difficulty: "advanced"}
+    - inputs: {question: "What is climate change?"}
+      expectations:
+        key_concepts: ["greenhouse gases", "global warming", "carbon emissions", "temperature"]
+      tags: {topic: "environment", difficulty: "intermediate"}
+  # Heuristic scorer defaults
+  response_length_max: 100
