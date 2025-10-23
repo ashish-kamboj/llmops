@@ -5,7 +5,7 @@ import streamlit as st
 import mlflow
 
 from utils.config_loader import load_configs
-from utils.mlflow_utils import setup_mlflow, ensure_prompt_registered, load_latest_prompt, ensure_default_prompt_exists
+from utils.mlflow_utils import setup_mlflow, ensure_prompt_registered, load_latest_prompt, check_prompt_exists
 from utils.groq_client import init_groq_client
 from utils.evaluation_utils import build_default_dataset, concept_coverage, response_length_check, is_concise, is_professional, is_accurate, is_helpful
 
@@ -119,7 +119,7 @@ def main() -> None:
         # Collapsible prompt registration section
         with st.expander("Register New Prompt Version", expanded=False):
             with st.form("register_prompt_form"):
-                system_prompt = st.text_area("System Message", value="You are a helpful assistant. Answer the following question in three sentences or less. Be concise and professional.", height=120)
+                system_prompt = st.text_area("System Message", value="You are a knowledgeable AI assistant. Provide accurate, helpful, and detailed answers to user questions.", height=120)
                 user_prompt = st.text_area("User Template", value="Question: {{question}}", height=80)
                 commit_message = st.text_input("Commit Message", value="New prompt version from Streamlit app")
                 submitted = st.form_submit_button("Register Prompt Version", use_container_width=True)
@@ -131,8 +131,14 @@ def main() -> None:
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": user_prompt},
                     ]
-                    ensure_prompt_registered(prompt_name, template, commit_message)
-                    st.success("Prompt registered successfully. New version created.")
+                    # ensure_prompt_registered returns True if new version created, False if duplicate
+                    version_created = ensure_prompt_registered(prompt_name, template, commit_message)
+                    
+                    if version_created:
+                        st.success("✅ Prompt registered successfully. New version created.")
+                        st.rerun()  # Refresh to show the new prompt is available
+                    else:
+                        st.warning("⚠️ This prompt is identical to the latest version. No new version created.")
                 except Exception as e:
                     st.error(f"Failed to register prompt: {e}")
 
@@ -141,10 +147,9 @@ def main() -> None:
         setup_mlflow(tracking_uri, experiment_name)
         groq_client = init_groq_client()
         
-        # Ensure default prompt exists
-        if not ensure_default_prompt_exists(prompt_name):
-            st.error(f"Failed to create or load prompt '{prompt_name}'. Please check MLflow connection.")
-            st.stop()
+        # Check if prompt exists, but don't create one automatically
+        if not check_prompt_exists(prompt_name):
+            st.info(f"ℹ️ No prompt '{prompt_name}' found. Please register a prompt using the sidebar to start chatting or running evaluations.")
     except Exception as e:
         st.error(f"Initialization error: {e}")
         st.stop()
