@@ -1,0 +1,18 @@
+# Core dependencies
+streamlit==1.50.0
+python-dotenv==1.0.1
+pyyaml==6.0.2
+
+# Groq API
+groq==0.11.0
+
+# Async HTTP client
+aiohttp==3.10.10
+
+# Audio processing
+soundfile==0.12.1
+sounddevice==0.5.1
+
+# Additional utilities
+pydantic==2.9.2
+pydantic-settings==2.5.2
