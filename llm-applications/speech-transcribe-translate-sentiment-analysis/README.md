@@ -5,7 +5,6 @@ A production-grade Streamlit application that transforms speech into actionable 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.50.0-red.svg)
 ![Groq](https://img.shields.io/badge/Groq-API-green.svg)
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## 🌟 Features
 
