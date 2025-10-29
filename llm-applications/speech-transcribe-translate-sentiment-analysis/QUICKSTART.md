@@ -30,6 +30,7 @@ streamlit run app.py
 2. **Optional:** Toggle "Parallel Processing" in the sidebar (ON = faster, OFF = sequential)
 3. Click "Analyze Speech" or "Analyze Recorded Speech"
 4. View your results with processing time comparison!
+ 5. **Optional:** Use the "🧹 Clear Results" button to reset and start a new analysis session
 
 ## 📖 Need More Help?
 Read the full README.md file for detailed documentation.

@@ -6,65 +6,65 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                         User Interface                          │
-│                    (Streamlit Web App)                          │
-│  ┌───────────────┐  ┌──────────────┐  ┌────────────────────┐    │
-│  │ File Upload   │  │ Configuration│  │  Results Display   │    │
-│  │   Widget      │  │   Sidebar    │  │   (Beautiful UI)   │    │
-│  └───────────────┘  └──────────────┘  └────────────────────┘    │
-│  ┌───────────────┐                                        │     │
-│  │ Audio Recorder│                                        │     │
-│  │   Widget      │                                        │     │
-│  └───────────────┘                                        │     │
+│                         User Interface                           │
+│                    (Streamlit Web App)                           │
+│  ┌───────────────┐  ┌──────────────┐  ┌────────────────────┐   │
+│  │ File Upload   │  │ Configuration│  │  Results Display   │   │
+│  │   Widget      │  │   Sidebar    │  │   (Beautiful UI)   │   │
+│  └───────────────┘  └──────────────┘  └────────────────────┘   │
+│  ┌───────────────┐                                        │   │
+│  │ Audio Recorder│                                        │   │
+│  │   Widget      │                                        │   │
+│  └───────────────┘                                        │   │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               │ Streamlit Events
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                      Application Logic                          │
+│                      Application Logic                           │
 │  ┌──────────────────────────────────────────────────────────┐   │
-│  │ Session Management | Config Loader | File Validator      │   │
+│  │ Session Management | Config Loader | File Validator       │   │
 │  └──────────────────────────────────────────────────────────┘   │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                     Service Layer (services.py)                 │
-│                                                                 │
+│                     Service Layer (services.py)                  │
+│                                                                   │
 │  ┌──────────────────────────────────────────────────────────┐   │
-│  │            SpeechAnalysisService                         │   │
-│  │                                                          │   │
-│  │  Step 1:                                                 │   │
+│  │            SpeechAnalysisService                          │   │
+│  │                                                           │   │
+│  │  Step 1:                                                  │   │
 │  │  ┌─────────────────────────────────────┐                 │   │
 │  │  │   Speech-to-Text (Whisper)          │                 │   │
 │  │  │   • Synchronous operation           │                 │   │
 │  │  │   • Converts audio → text           │                 │   │
 │  │  └─────────────────────────────────────┘                 │   │
-│  │                    │                                     │   │
-│  │                    ▼                                     │   │
+│  │                    │                                      │   │
+│  │                    ▼                                      │   │
 │  │  Step 2 & 3 (PARALLEL):                                  │   │
-│  │  ┌──────────────────────┐  ┌──────────────────────┐      │   │
-│  │  │ Sentiment Analysis   │  │  Translation         │      │   │
-│  │  │ • Async operation    │  │  • Async operation   │      │   │
-│  │  │ • Uses Llama LLM     │  │  • Uses Llama LLM    │      │   │
-│  │  │ • Classifies emotion │  │  • English → Hindi   │      │   │
-│  │  └──────────────────────┘  └──────────────────────┘      │   │
-│  │                    │                    │                │   │
+│  │  ┌──────────────────────┐  ┌──────────────────────┐     │   │
+│  │  │ Sentiment Analysis   │  │  Translation         │     │   │
+│  │  │ • Async operation    │  │  • Async operation   │     │   │
+│  │  │ • Uses Llama LLM     │  │  • Uses Llama LLM    │     │   │
+│  │  │ • Classifies emotion │  │  • English → Hindi   │     │   │
+│  │  └──────────────────────┘  └──────────────────────┘     │   │
+│  │                    │                    │                 │   │
 │  │                    └────────┬───────────┘                │   │
-│  │                             │                            │   │
-│  │                    asyncio.gather()                      │   │
-│  │              (Parallel Execution)                        │   │
+│  │                             │                             │   │
+│  │                    asyncio.gather()                       │   │
+│  │              (Parallel Execution)                         │   │
 │  └──────────────────────────────────────────────────────────┘   │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                       Groq API Layer                            │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐   │
-│  │   Whisper    │  │   Llama 3.1  │  │    Llama 3.1         │   │
-│  │   API Call   │  │  API Call    │  │    API Call          │   │
-│  │ (STT Model)  │  │ (Sentiment)  │  │   (Translation)      │   │
-│  └──────────────┘  └──────────────┘  └──────────────────────┘   │
+│                       Groq API Layer                             │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐  │
+│  │   Whisper    │  │   Llama 3.1  │  │    Llama 3.1         │  │
+│  │   API Call   │  │  API Call    │  │    API Call          │  │
+│  │ (STT Model)  │  │ (Sentiment)  │  │   (Translation)      │  │
+│  └──────────────┘  └──────────────┘  └──────────────────────┘  │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -87,7 +87,7 @@
   │
   │ 4. Reads audio file
   ▼
-[Groq Whisper API]  ────────────────┐
+[Groq Whisper API] ────────────────┐
   │                                 │
   │ 5. Returns transcription        │ Sequential
   ▼                                 │ Operation
@@ -139,7 +139,7 @@ User          Streamlit      Utils          Services        Groq API
  │ Click Analyze │             │               │               │
  ├──────────────>│             │               │               │
  │               │             │               │               │
- │               │ Initialize Service          │               │
+ │               │ Initialize Service         │               │
  │               ├────────────────────────────>│               │
  │               │             │               │               │
  │               │             │ process_audio_file()          │
@@ -201,19 +201,19 @@ Our Use Case:
               └───────────────────────┘
                           │
           ┌───────────────┴────────────────┐
-          │                                │
-          ▼                                ▼
+          │                                 │
+          ▼                                 ▼
     Sequential Mode                   Parallel Mode
   (config: false)                    (config: true)
-          │                                │
-          ▼                                ▼
+          │                                 │
+          ▼                                 ▼
     ┌─────────┐                      ┌─────────┐
     │Sentiment│                      │ async   │
     │Analysis │                      │ Task 1: │
     │ 2-3 sec │                      │Sentiment│
     └────┬────┘                      └────┬────┘
-         │                                │
-         ▼                                │
+         │                                 │
+         ▼                                 │
     ┌─────────┐                           │
     │Translate│                      ┌────┴────┐
     │ 2-4 sec │                      │ async   │
@@ -351,10 +351,10 @@ Option 1: Horizontal Scaling
 └──────┬──────┘  └──────┬──────┘  └──────┬──────┘
        │                │                │
        └────────────────┴────────────────┘
-                        │
-                ┌───────┴────────┐
-                │ Load Balancer  │
-                └────────────────┘
+                       │
+              ┌────────┴────────┐
+              │ Load Balancer   │
+              └─────────────────┘
 
 Option 2: Queue-Based Processing
 [Streamlit] → [Message Queue] → [Worker Pool] → [Groq API]
@@ -413,12 +413,12 @@ Metrics to track:
                     │           │
               File Upload     API Key
                     │           │
-              ┌─────┴─────┐     │
-              │ Validate  │     │
-              │ • Size    │     │
-              │ • Format  │     │
-              │ • Content │     │
-              └─────┬─────┘     │
+              ┌─────┴─────┐    │
+              │ Validate  │    │
+              │ • Size    │    │
+              │ • Format  │    │
+              │ • Content │    │
+              └─────┬─────┘    │
                     │           │
               [Temp Storage]   [Environment]
                     │           │

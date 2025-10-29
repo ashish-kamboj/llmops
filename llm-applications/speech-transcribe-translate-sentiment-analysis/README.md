@@ -5,17 +5,11 @@ A production-grade Streamlit application that transforms speech into actionable 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.50.0-red.svg)
 ![Groq](https://img.shields.io/badge/Groq-API-green.svg)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## 🌟 Features
 
-- **🎙️ Speech-to-Text**: Convert audio to text using Groq's Whisper models
-- **💭 Sentiment Analysis**: Analyze emotional tone (Positive/Negative/Neutral) using advanced LLMs
-- **🌐 Language Translation**: Translate English speech to Hindi (Devanagari script)
-- **🎤 Audio Recording**: Record audio directly in the browser using Streamlit's native audio input
-- **⚡ Configurable Processing**: Toggle between parallel (faster) and sequential (easier debugging) processing modes
-- **🎨 Beautiful UI**: Modern, responsive interface with gradient designs and animations
-- **⚙️ Fully Configurable**: Customize models, parameters, and processing options via config.yaml
-- **📊 Comprehensive Results**: Download analysis results in JSON format
+ - **🧹 Clear Results Button**: Instantly clear the analysis results to start a new session (after upload or recording)
 
 ## 🏗️ Architecture
 
@@ -241,6 +235,9 @@ ui:
 
 7. **Download Results** (Optional)
    - Click "📥 Download Results (JSON)" to save analysis data
+
+8. **Clear Results** (Optional)
+   - Click the "🧹 Clear Results" button to reset the results and start a new analysis session
 
 ### Supported Audio Formats
 

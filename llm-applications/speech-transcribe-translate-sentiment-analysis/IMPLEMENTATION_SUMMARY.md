@@ -22,6 +22,7 @@ A production-grade speech analysis application with:
 7. ✅ **Environment Management** - .env file for API keys (always loaded from .env)
 8. ✅ **Configurable** - YAML config for all parameters
 9. ✅ **Comprehensive Documentation** - README, Architecture, Testing guides
+10. ✅ **Clear Results Button** - Instantly clear analysis results to start a new session after upload or recording
 
 ### Technical Implementation
 

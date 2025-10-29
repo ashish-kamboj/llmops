@@ -607,6 +607,13 @@ def main():
                     use_container_width=True
                 )
 
+                # Clear results button
+                st.markdown("---")
+                clear_col1, clear_col2, clear_col3 = st.columns([1, 2, 1])
+                with clear_col2:
+                    if st.button("🧹 Clear Results", type="secondary", use_container_width=True):
+                        st.session_state.results = None
+
     except FileNotFoundError as e:
         st.error(f"❌ Configuration Error: {str(e)}")
         st.info("💡 Make sure config.yaml exists in the application directory")
