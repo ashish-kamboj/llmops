@@ -461,6 +461,4 @@ jobs:
 
 ---
 
-**Happy Testing! 🧪**
-
 For issues or questions, check the main README.md or open an issue.

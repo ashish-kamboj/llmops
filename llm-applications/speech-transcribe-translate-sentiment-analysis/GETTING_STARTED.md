@@ -344,5 +344,3 @@ The application is now ready to use. Enjoy analyzing speech with AI!
 **Need Help?** Check README.md or TROUBLESHOOTING section.
 
 ---
-
-*Happy Analyzing! 🎤🤖*
