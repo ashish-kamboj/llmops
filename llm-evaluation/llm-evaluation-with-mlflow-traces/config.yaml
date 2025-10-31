@@ -1,0 +1,229 @@
+# LLM Evaluation Configuration File
+# Centralized configuration for easy parameter management
+
+# Groq API Configuration
+groq:
+  api_key_env: "GROQ_API_KEY"  # Environment variable name
+  
+  # Available models for evaluation
+  models:
+    llama-3.1-70b:
+      model_id: "llama-3.1-70b-versatile"
+      description: "Balanced performance, good for general tasks"
+      recommended_for: "production"
+    
+    llama-3.1-8b:
+      model_id: "llama-3.1-8b-instant"
+      description: "Fast responses, cost-effective"
+      recommended_for: "high-volume"
+    
+    mixtral-8x7b:
+      model_id: "mixtral-8x7b-32768"
+      description: "Good reasoning, large context window"
+      recommended_for: "complex-reasoning"
+    
+    gemma-7b:
+      model_id: "gemma-7b-it"
+      description: "Efficient instruction-following"
+      recommended_for: "simple-tasks"
+  
+  # Default model settings
+  default_model: "llama-3.1-8b"
+  default_temperature: 0.7
+  max_tokens: 500
+  top_p: 1.0
+  stream: false
+  
+  # System prompt
+  system_prompt: "You are a helpful AI assistant. Provide clear, concise, and accurate answers."
+
+# A/B Testing Configuration
+ab_testing:
+  enabled: true
+  
+  # Models to compare (list of model keys from groq.models)
+  test_models:
+    - "llama-3.1-8b"
+    - "llama-3.1-70b"
+  
+  # Alternation strategy: "sequential" or "random"
+  strategy: "sequential"
+  
+  # Temperature testing (optional)
+  temperature_test:
+    enabled: false
+    temperatures: [0.3, 0.7, 1.0]
+
+# MLflow Configuration
+mlflow:
+  tracking_uri: "file:./mlruns"
+  experiment_name: "llm-chat-evaluation-groq"
+  
+  # Auto-logging settings
+  auto_log:
+    params: true
+    metrics: true
+    artifacts: true
+
+# Dataset Configuration
+dataset:
+  name: "chat_evaluation_dataset"
+  
+  # Tags for dataset
+  tags:
+    purpose: "chat_evaluation"
+    source: "real_chat_traces"
+    team: "ml-team"
+    stage: "development"
+
+# Evaluation Metrics Configuration
+evaluation:
+  # Metrics to calculate
+  metrics:
+    rouge:
+      enabled: true
+      types: ["rouge1", "rouge2", "rougeL"]
+      use_stemmer: true
+    
+    bleu:
+      enabled: true
+      smoothing: true
+    
+    meteor:
+      enabled: true
+    
+    semantic_similarity:
+      enabled: true
+      method: "jaccard"  # Options: jaccard, cosine
+    
+    exact_match:
+      enabled: true
+    
+    length:
+      enabled: true
+      min_length: 50
+      max_length: 500
+  
+  # Thresholds for quality assessment
+  thresholds:
+    rouge1_min: 0.3
+    rouge2_min: 0.2
+    rougeL_min: 0.25
+    bleu_min: 0.2
+    meteor_min: 0.25
+    semantic_similarity_min: 0.3
+
+# Visualization Configuration
+visualization:
+  # Output settings
+  dpi: 300
+  format: "png"
+  style: "whitegrid"  # seaborn style
+  
+  # Figure sizes
+  figure_sizes:
+    comparison_chart: [18, 10]
+    radar_chart: [10, 10]
+    heatmap: [10, 8]
+    scatter: [12, 6]
+    boxplot: [14, 6]
+  
+  # Color palette for models
+  colors:
+    - "#3498db"  # Blue
+    - "#e74c3c"  # Red
+    - "#2ecc71"  # Green
+    - "#f39c12"  # Orange
+  
+  # Output filenames
+  output_files:
+    metrics_comparison: "evaluation_metrics_comparison.png"
+    radar_chart: "model_performance_radar.png"
+    correlation_heatmap: "metrics_correlation_heatmap.png"
+    token_efficiency: "token_efficiency_vs_performance.png"
+    distribution_boxplot: "metrics_distribution_boxplot.png"
+
+# Sample Questions for Evaluation
+sample_questions:
+  - "What is the capital of France?"
+  - "How do I reset my password?"
+  - "Can you explain what Python is?"
+  - "Tell me about machine learning"
+  - "What are the benefits of cloud computing?"
+  - "Explain quantum computing in simple terms"
+
+# Expected Answers (Ground Truth / Reference Answers)
+# Used for calculating evaluation metrics
+expected_answers:
+  - question: "What is the capital of France?"
+    answer: "The capital of France is Paris. Paris is located in the north-central part of France and has been the country's capital since the 12th century."
+    quality_metrics:
+      relevance: 1.0
+      accuracy: 1.0
+      completeness: 0.9
+      is_factual: true
+  
+  - question: "How do I reset my password?"
+    answer: "To reset your password: 1. Click on the 'Forgot Password' link on the login page. 2. Enter your registered email address. 3. Check your inbox for a password reset link. 4. Click the link and follow the instructions to set a new secure password."
+    quality_metrics:
+      relevance: 1.0
+      accuracy: 0.95
+      completeness: 1.0
+      has_step_by_step: true
+      is_helpful: true
+  
+  - question: "Can you explain what Python is?"
+    answer: "Python is a high-level, interpreted programming language created by Guido van Rossum. It's known for its simplicity, readability, and versatility. Python is widely used in web development, data science, artificial intelligence, automation, and scientific computing."
+    quality_metrics:
+      relevance: 1.0
+      accuracy: 0.95
+      completeness: 0.9
+      is_informative: true
+  
+  - question: "Tell me about machine learning"
+    answer: "Machine learning is a branch of artificial intelligence that enables computers to learn from data without being explicitly programmed. It uses algorithms to identify patterns in data and make predictions or decisions. Common applications include image recognition, natural language processing, and recommendation systems."
+    quality_metrics:
+      relevance: 1.0
+      accuracy: 0.95
+      completeness: 0.9
+      is_informative: true
+  
+  - question: "What are the benefits of cloud computing?"
+    answer: "Cloud computing offers several benefits: 1. Cost efficiency - pay only for what you use. 2. Scalability - easily scale resources up or down. 3. Accessibility - access data from anywhere. 4. Reliability - data backup and disaster recovery. 5. Collaboration - teams can work together remotely."
+    quality_metrics:
+      relevance: 1.0
+      accuracy: 0.95
+      completeness: 0.95
+      is_informative: true
+  
+  - question: "Explain quantum computing in simple terms"
+    answer: "Quantum computing uses quantum mechanics principles to process information. Unlike classical computers that use bits (0 or 1), quantum computers use qubits that can exist in multiple states simultaneously (superposition). This allows them to solve certain complex problems much faster than traditional computers, particularly in cryptography, drug discovery, and optimization."
+    quality_metrics:
+      relevance: 1.0
+      accuracy: 0.95
+      completeness: 0.95
+      is_informative: true
+
+# Advanced Settings
+advanced:
+  # Continuous evaluation settings
+  continuous_eval:
+    enabled: true
+    batch_size: 10
+    update_frequency: "daily"
+  
+  # Logging
+  logging:
+    level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+    file: "evaluation.log"
+  
+  # Performance
+  parallel_processing:
+    enabled: false
+    max_workers: 4
+  
+  # Rate limiting (for API calls)
+  rate_limit:
+    calls_per_minute: 30
+    retry_attempts: 3
+    retry_delay: 2  # seconds
