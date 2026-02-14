@@ -68,7 +68,7 @@ Comprehensive guide and testing suite for Ollama Cloud API with samples for all 
    - Get it from: https://ollama.com/settings/keys
 
 4. **Run the notebook**
-   - Open `ollama_cloud_test_notebook.ipynb` in Jupyter/VSCode
+   - Open the specific notebook in Jupyter/VSCode
    - Run cells in order (from top to bottom)
    - Each cell demonstrates a specific capability
 
@@ -76,7 +76,7 @@ Comprehensive guide and testing suite for Ollama Cloud API with samples for all 
 
 ## Features & Capabilities
 
-### 1. Chat & Conversation
+### 1. Chat & Conversation - `1_ollama_chat.ipynb`
 **Basic conversational AI**
 - Simple question-answer interactions
 - Multi-turn conversations
