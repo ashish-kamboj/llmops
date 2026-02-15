@@ -89,3 +89,19 @@ response = client.chat(
     stream=False
 )
 ```
+
+### 2. Streaming - `2_ollama_streaming.ipynb`
+**Real-time token streaming**
+- Lower latency perception
+- Better UX for long responses
+- Live output display
+
+```python
+stream = client.chat(
+    model='qwen3',
+    messages=[{'role': 'user', 'content': 'Write a poem'}],
+    stream=True
+)
+for chunk in stream:
+    print(chunk.message.content, end='', flush=True)
+```
