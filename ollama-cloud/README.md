@@ -105,3 +105,22 @@ stream = client.chat(
 for chunk in stream:
     print(chunk.message.content, end='', flush=True)
 ```
+
+### 3. Thinking/Reasoning
+**Extended reasoning with transparent thought process**
+- Models show their reasoning
+- Ideal for complex problems
+- Better auditability
+
+**Supported Models**: Qwen3-next, DeepSeek R1, GPT-OSS:120b
+
+```python
+response = client.chat(
+    model='qwen3',
+    messages=[{'role': 'user', 'content': 'Solve this math problem...'}],
+    think=True,
+    stream=True
+)
+# Access response.message.thinking for reasoning trace
+# Access response.message.content for final answer
+```
