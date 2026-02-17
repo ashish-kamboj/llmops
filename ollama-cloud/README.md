@@ -98,7 +98,7 @@ response = client.chat(
 
 ```python
 stream = client.chat(
-    model='qwen3',
+    model='qwen3-next:80b',
     messages=[{'role': 'user', 'content': 'Write a poem'}],
     stream=True
 )
@@ -116,11 +116,41 @@ for chunk in stream:
 
 ```python
 response = client.chat(
-    model='qwen3',
+    model='qwen3-next:80b',
     messages=[{'role': 'user', 'content': 'Solve this math problem...'}],
     think=True,
     stream=True
 )
 # Access response.message.thinking for reasoning trace
 # Access response.message.content for final answer
+```
+
+### 4. Vision
+**Image understanding and analysis**
+- Describe images
+- Answer questions about images
+- Document analysis
+- Scene understanding
+
+**Supported Models**: Qwen3-vl, Gemma3, Mistral-3, devstral-small-2
+
+**Important**: Images must be provided as base64-encoded strings, not URLs. Download images and encode them first.
+
+```python
+import base64
+import requests
+
+# Download and encode image
+response_img = requests.get('https://example.com/image.jpg')
+image_data = base64.b64encode(response_img.content).decode('utf-8')
+
+# Send to model
+response = client.chat(
+    model='gemma3:4b',
+    messages=[{
+        'role': 'user',
+        'content': 'Describe this image',
+        'images': [image_data]  # Pass base64 string
+    }]
+)
 ```
