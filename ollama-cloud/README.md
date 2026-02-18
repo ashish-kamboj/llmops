@@ -106,7 +106,7 @@ for chunk in stream:
     print(chunk.message.content, end='', flush=True)
 ```
 
-### 3. Thinking/Reasoning
+### 3. Thinking/Reasoning - `3_ollama_thinking.ipynb`
 **Extended reasoning with transparent thought process**
 - Models show their reasoning
 - Ideal for complex problems
@@ -125,7 +125,7 @@ response = client.chat(
 # Access response.message.content for final answer
 ```
 
-### 4. Vision
+### 4. Vision - `4_ollama_vision.ipynb`
 **Image understanding and analysis**
 - Describe images
 - Answer questions about images
@@ -153,4 +153,22 @@ response = client.chat(
         'images': [image_data]  # Pass base64 string
     }]
 )
+```
+
+### 5. Tool Calling - `5_ollama_tool_calling.ipynb`
+**Extend models with custom functions**
+- Models decide when to use tools
+- Function calling and execution
+- Complex workflows
+
+**Supported Models**: Qwen3-next, GPT-OSS:120b, DeepSeek-v3.1
+
+```python
+response = client.chat(
+    model='gpt-oss:120b',
+    messages=[{'role': 'user', 'content': 'Calculate 17 × 23'}],
+    tools=[tool_definitions],
+    stream=False
+)
+# Check response.message.tool_calls for function requests
 ```
