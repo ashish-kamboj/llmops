@@ -172,3 +172,16 @@ response = client.chat(
 )
 # Check response.message.tool_calls for function requests
 ```
+
+### 6. Web Search - `6_ollama_web_search.ipynb`
+**Real-time web information access**
+- Search the internet
+- Fetch web pages
+- Reduce hallucinations
+- Current information
+
+```python
+results = client.web_search('What is Ollama?', max_results=5)
+for result in results.results:
+    print(f"{result.title}: {result.url}")
+```
