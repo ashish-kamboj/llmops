@@ -185,3 +185,9 @@ results = client.web_search('What is Ollama?', max_results=5)
 for result in results.results:
     print(f"{result.title}: {result.url}")
 ```
+
+### 7. AI Agents with web search capability - `7_ollama_agent_with_web_search.ipynb`
+**Combine multiple capabilities for autonomous reasoning**
+- Research and fact-finding
+- Complex decision-making
+- Multi-step workflows
