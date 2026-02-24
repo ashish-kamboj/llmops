@@ -192,6 +192,57 @@ for result in results.results:
 - Complex decision-making
 - Multi-step workflows
 
+### 8. Embeddings with Vector Search (`8_ollama_embedding.ipynb`)
+**How It Works**
+
+1. **Generate Embeddings**: Convert documents into vectors using `mxbai-embed-large` model
+2. **Store & Index**: Store embeddings in ChromaDB vector database
+3. **Retrieve & Generate**: Query for relevant documents and generate answers using `gemma3:1b`
+
+```python
+import ollama
+import chromadb
+
+# Step 1: Create vector database and store documents
+documents = [
+    "Llamas are members of the camelid family...",
+    "Llamas were first domesticated 4,000 to 5,000 years ago...",
+    # ... more documents
+]
+
+client = chromadb.Client()
+collection = client.create_collection(name="docs")
+
+# Generate and store embeddings
+for i, doc in enumerate(documents):
+    response = ollama.embed(model="mxbai-embed-large", input=doc)
+    collection.add(
+        ids=[str(i)],
+        embeddings=response["embeddings"],
+        documents=[doc]
+    )
+
+# Step 2: Retrieve relevant documents
+prompt = "What animals are llamas related to?"
+response = ollama.embed(model="mxbai-embed-large", input=prompt)
+results = collection.query(
+    query_embeddings=response["embeddings"],
+    n_results=1
+)
+retrieved_doc = results['documents'][0][0]
+
+# Step 3: Generate answer with context
+output = ollama.generate(
+    model="gemma3:1b",
+    prompt=f"Using this data: {retrieved_doc}. Respond to: {prompt}"
+)
+print(output['response'])
+```
+
+**Models Used**
+- **Embedding Model**: `mxbai-embed-large` - High-quality text embeddings
+- **Generation Model**: `gemma3:1b` - Lightweight model for generating responses
+
 ---
 
 ## Setup Instructions
@@ -248,6 +299,7 @@ print(f"API Key configured: {api_key is not None}")
     - `5_ollama_tool_calling.ipynb` (Tool Calling)
     - `6_ollama_web_search.ipynb` (Web Search + Web Fetch)
     - `7_ollama_agent_with_web_search.ipynb` (AI Agent)
+    - `8_ollama_embedding.ipynb` (Embeddings with Vector Search)
 3. Run cells in order:
     - **Cell 1**: Setup (install packages)
     - **Cell 2**: Import libraries and configure
