@@ -1,0 +1,99 @@
+# Configuration file for Speech Analysis App
+# This file contains all configurable parameters for the application
+
+# Groq API Models Configuration
+models:
+  # Speech-to-Text Model (Whisper variants)
+  # Options: whisper-large-v3, whisper-large-v3-turbo
+  speech_to_text: "whisper-large-v3"
+  
+  # Language Model for Sentiment Analysis and Translation
+  # Options: llama-3.3-70b-versatile, llama-3.1-8b-instant, mixtral-8x7b-32768
+  language_model: "llama-3.3-70b-versatile"
+
+# API Configuration
+api:
+  # Maximum timeout for API calls (in seconds)
+  timeout: 30
+  
+  # Maximum retry attempts for failed requests
+  max_retries: 3
+  
+  # Enable parallel processing for sentiment and translation
+  parallel_processing: true
+
+# Audio Configuration
+audio:
+  # Maximum audio file size in MB
+  max_file_size_mb: 25
+  
+  # Supported audio formats
+  supported_formats:
+    - "mp3"
+    - "mp4"
+    - "mpeg"
+    - "mpga"
+    - "m4a"
+    - "wav"
+    - "webm"
+  
+  # Audio recording settings
+  sample_rate: 44100
+  channels: 1
+  max_recording_duration: 300  # in seconds (5 minutes)
+
+# UI Configuration
+ui:
+  # Page title and configuration
+  page_title: "AI Speech Analyzer"
+  page_icon: "🎤"
+  layout: "wide"
+  
+  # Color theme (used in custom CSS)
+  primary_color: "#FF4B4B"
+  secondary_color: "#0E1117"
+  accent_color: "#262730"
+  
+  # Display options
+  show_audio_player: true
+  show_processing_time: true
+  show_confidence_scores: false
+
+# Sentiment Analysis Configuration
+sentiment:
+  # Sentiment categories
+  categories:
+    - "Positive"
+    - "Negative"
+    - "Neutral"
+  
+  # Temperature for LLM (0.0 to 2.0, lower is more deterministic)
+  temperature: 0.3
+  
+  # Maximum tokens for sentiment analysis response
+  max_tokens: 150
+
+# Translation Configuration
+translation:
+  # Target language for translation
+  target_language: "Hindi"
+  
+  # Temperature for LLM
+  temperature: 0.5
+  
+  # Maximum tokens for translation response
+  max_tokens: 1000
+  
+  # Preserve formatting in translation
+  preserve_formatting: true
+
+# Logging Configuration
+logging:
+  # Log level: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  level: "INFO"
+  
+  # Enable file logging
+  enable_file_logging: false
+  
+  # Log file path (if file logging is enabled)
+  log_file: "logs/app.log"
